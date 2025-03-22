@@ -16,4 +16,6 @@ Route::get('/status-tanah', [StatusTanahController::class, 'getAllStatusTanah'])
 Route::get('/status-kepemilikan', [StatusKepemilikanController::class, 'getAllStatusKepemilikan']);
 
 Route::post('/create-ground', [GroundController::class, 'store']);
+Route::patch('/update-ground/{id}', [GroundController::class, 'update']);
+Route::delete('/delete-ground/{id}', [GroundController::class, 'destroy']);
 Route::get('/get-ground', [GroundController::class, 'fetchAllData']);

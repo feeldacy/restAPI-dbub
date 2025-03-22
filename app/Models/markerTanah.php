@@ -27,6 +27,6 @@ class markerTanah extends Model
     }
 
     public function polygonTanah(){
-        return $this->hasOne(PolygonTanah::class,'marker_tanah_id');
+        return $this->hasOne(PolygonTanah::class,'marker_id');
     }
 }

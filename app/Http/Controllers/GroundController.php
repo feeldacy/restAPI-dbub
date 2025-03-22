@@ -8,6 +8,8 @@ use App\Services\polygon_tanahervice;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log as FacadesLog;
 
 class GroundController extends Controller
 {
@@ -101,7 +103,21 @@ class GroundController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            // dd($request->all());
+            Log::info('Raw Request:', ['input' => file_get_contents('php://input')]);
+
+            Log::info('Request yang diterima:', $request->all());
+            $result = $this->groundService->updateGroundData($id, $request->all());
+
+            return response()->json(['success' => true, 'message' => $result['message']]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Terjadi kesalahan saat menyimpan data.',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTrace()
+            ], 500);
+        }
     }
 
     /**
@@ -109,6 +125,12 @@ class GroundController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $result = $this->groundService->deleteGround($id);
+
+        if (!$result['success']) {
+            return response()->json(['message' => $result['message']], 404);
+        }
+
+        return response()->json(['success' => true, 'message' => $result['message']], 200);
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->json('coordinates');
 
             // Reference to the related table : MarkerTanah table
-            $table->foreign('marker_id')->references('id')->on('marker_tanah');
+            $table->foreign('marker_id')->references('id')->on('marker_tanah')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();

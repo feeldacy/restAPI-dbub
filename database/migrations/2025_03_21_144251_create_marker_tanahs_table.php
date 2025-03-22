@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('longitude', 9,6);
 
             // Reference to the related table: DetailTanah table
-            $table->foreign('detail_tanah_id')->references('id')->on('detail_tanah');
+            $table->foreign('detail_tanah_id')->references('id')->on('detail_tanah')->onDelete('cascade');
 
             $table->timestamps();
             $table->softDeletes();
